@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.mallen.test.common.redis.MallenLettuceAutoConfiguration,\
+org.mallen.test.common.redis.MallenJedisAutoConfiguration
