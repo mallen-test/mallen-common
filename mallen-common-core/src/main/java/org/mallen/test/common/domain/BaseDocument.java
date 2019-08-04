@@ -4,8 +4,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
-
 /**
  * mongodb数据库的基类，所有mongodb的domain对象都需要继承于该类，该类要求设置创建时间和更新时间。
  * 通过调用spring-data-mongodb的方法可以自动完成创建时间和更新时间的设置，由于当前版本的spring-data-mongodb本身的问题，
@@ -16,9 +14,9 @@ public class BaseDocument {
     @Id
     private String id;
     @CreatedDate
-    private Date createdTime;
+    private Long createdTime;
     @LastModifiedDate
-    private Date updatedTime;
+    private Long updatedTime;
 
     public String getId() {
         return id;
@@ -28,19 +26,19 @@ public class BaseDocument {
         this.id = id;
     }
 
-    public Date getCreatedTime() {
+    public Long getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(Long createdTime) {
         this.createdTime = createdTime;
     }
 
-    public Date getUpdatedTime() {
+    public Long getUpdatedTime() {
         return updatedTime;
     }
 
-    public void setUpdatedTime(Date updatedTime) {
+    public void setUpdatedTime(Long updatedTime) {
         this.updatedTime = updatedTime;
     }
 
