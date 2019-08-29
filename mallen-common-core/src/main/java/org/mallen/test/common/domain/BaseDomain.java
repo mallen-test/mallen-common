@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.util.Date;
 
 /**
  * @author mallen
@@ -16,23 +15,31 @@ import java.util.Date;
 @EntityListeners({AuditingEntityListener.class})
 public class BaseDomain {
     @CreatedDate
-    private Date createdTime;
+    private Long createdTime;
     @LastModifiedDate
-    private Date updatedTime;
+    private Long updatedTime;
 
-    public Date getCreatedTime() {
+    @Override
+    public String toString() {
+        return "BaseDomain{" +
+                "createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
+
+    public Long getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(Long createdTime) {
         this.createdTime = createdTime;
     }
 
-    public Date getUpdatedTime() {
+    public Long getUpdatedTime() {
         return updatedTime;
     }
 
-    public void setUpdatedTime(Date updatedTime) {
+    public void setUpdatedTime(Long updatedTime) {
         this.updatedTime = updatedTime;
     }
 }
