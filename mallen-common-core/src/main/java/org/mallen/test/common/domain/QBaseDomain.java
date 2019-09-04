@@ -4,9 +4,9 @@ import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.NumberPath;
 
 import javax.annotation.Generated;
-import java.util.Date;
 
 import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
@@ -22,9 +22,9 @@ public class QBaseDomain extends EntityPathBase<BaseDomain> {
 
     public static final QBaseDomain baseDomain = new QBaseDomain("baseDomain");
 
-    public final DateTimePath<java.util.Date> createdTime = createDateTime("createdTime", java.util.Date.class);
+    public final NumberPath<Long> createdTime = createNumber("createdTime", Long.class);
 
-    public final DateTimePath<Date> updatedTime = createDateTime("updatedTime", java.util.Date.class);
+    public final NumberPath<Long> updatedTime = createNumber("updatedTime", Long.class);
 
     public QBaseDomain(String variable) {
         super(BaseDomain.class, forVariable(variable));

@@ -163,8 +163,8 @@ public class CommonRest {
     @Autowired(required = false)
     @Qualifier("loadBalancedRestTemplate")
     private RestTemplate loadBalancedRestTemplate;
-    @Autowired(required = false)
-    private DiscoveryClient discoveryClient;
+//    @Autowired(required = false)
+//    private DiscoveryClient discoveryClient;
     @Autowired(required = false)
     private CommonRestProperties restProperties;
 

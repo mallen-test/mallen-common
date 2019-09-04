@@ -52,6 +52,11 @@ public class Response<T> implements Serializable {
         this.total = total;
     }
 
+    public Response(T data, Boolean hasNext) {
+        this.data = data;
+        this.hasNext = hasNext;
+    }
+
     public Response(Long total, T data) {
         this.data = data;
         this.total = total;
@@ -69,7 +74,7 @@ public class Response<T> implements Serializable {
         return response;
     }
 
-    public static Response create(Object data) {
+    public static <T> Response create(T data) {
         return new Response(data);
     }
 
@@ -77,13 +82,15 @@ public class Response<T> implements Serializable {
         return new Response(total);
     }
 
-    public static Response create(Object data, Long total) {
+    public static <T> Response create(T data, Long total) {
         return new Response(data, total);
     }
 
-    public static Response create(Long total, Object data) {
+    public static <T> Response create(Long total, T data) {
         return new Response(data, total);
     }
+
+    public static <T> Response create(T data, Boolean hasNext) { return new Response(data, hasNext);}
 
     public Status getStatus() {
         return status;
