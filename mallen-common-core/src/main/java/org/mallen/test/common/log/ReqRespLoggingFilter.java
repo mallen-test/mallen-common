@@ -167,9 +167,13 @@ public class ReqRespLoggingFilter implements Filter, org.springframework.core.Or
 
     private void printResponseBody(StringBuilder b, ResponseWrapper response) {
         prefixId(b).append(RESPONSE_PREFIX).append('\n');
-        String body = new String(response.toByteArray());
-        body = filterBodySensitiveWords(body);
-
+        String body;
+        if (response.getHeader("Content-Type").equals("application/octet-stream")) {
+            body = "不显示Content-Type为application/octet-stream类型的body";
+        } else {
+            body = new String(response.toByteArray());
+            body = filterBodySensitiveWords(body);
+        }
         b.append(body);
     }
 
