@@ -11,6 +11,8 @@ public class SlicePage<T> {
     private Boolean hasNext;
 
     public SlicePage() {
+        this.data = null;
+        this.hasNext = Boolean.FALSE;
     }
 
     public SlicePage(List<T> data, Boolean hasNext) {
