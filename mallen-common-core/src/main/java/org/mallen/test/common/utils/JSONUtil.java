@@ -70,7 +70,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(URL url, TypeReference valueTypeRef) {
+    public static <T> T readValue(URL url, TypeReference<T> valueTypeRef) {
         if (url == null) {
             return null;
         }
@@ -109,7 +109,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(Reader reader, TypeReference valueTypeRef) {
+    public static <T> T readValue(Reader reader, TypeReference<T> valueTypeRef) {
         if (reader == null) {
             return null;
         }
@@ -135,7 +135,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(InputStream is, TypeReference valueTypeRef) {
+    public static <T> T readValue(InputStream is, TypeReference<T> valueTypeRef) {
         if (is == null) {
             return null;
         }
@@ -161,7 +161,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(File file, TypeReference valueTypeRef) {
+    public static <T> T readValue(File file, TypeReference<T> valueTypeRef) {
         if (file == null || !file.exists()) {
             return null;
         }
@@ -200,7 +200,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(String content, TypeReference valueTypeRef) {
+    public static <T> T readValue(String content, TypeReference<T> valueTypeRef) {
         if (content == null) {
             return null;
         }
@@ -213,7 +213,7 @@ public class JSONUtil {
         return result;
     }
 
-    public static <T> T readValue(byte[] content, TypeReference valueTypeRef) {
+    public static <T> T readValue(byte[] content, TypeReference<T> valueTypeRef) {
         if (content == null) {
             return null;
         }
