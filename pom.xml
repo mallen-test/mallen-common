@@ -7,6 +7,7 @@
     <modules>
         <module>mallen-common-redis</module>
         <module>mallen-common-core</module>
+        <module>mallen-common-utils</module>
     </modules>
 
     <parent>
