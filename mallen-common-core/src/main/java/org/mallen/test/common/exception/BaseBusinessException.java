@@ -101,4 +101,10 @@ public class BaseBusinessException extends RuntimeException {
     public String toString() {
         return "ErrorCode : " + this.error.getErrorCode() + ", ErrorMessage : " + this.error.getErrorMessage() + ", ExtMessage : " + this.extMessage;
     }
+
+    public String toJson() {
+        return "{\"errorCode\":" + "\"" + this.error.getErrorCode() + "\","
+                + "\"errorMessage\":\"" + this.error.getErrorMessage() + "\","
+                + "\"extMessage\":\"" + this.extMessage + "\"}";
+    }
 }
