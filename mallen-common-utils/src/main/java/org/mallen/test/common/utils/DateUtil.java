@@ -2,15 +2,37 @@ package org.mallen.test.common.utils;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author mallen
  * @date 12/30/19
  */
 public class DateUtil {
+    private static Map<String, DateTimeFormatter> cache = new HashMap<>();
+
+    /**
+     * 使用默认时区格式化时间戳
+     *
+     * @param timestamp
+     * @param pattern
+     * @return
+     */
+    public static String formatMs(Long timestamp, String pattern) {
+        return formatMs(timestamp, pattern, ZoneId.systemDefault());
+    }
+
+    public static String formatMs(Long timestamp, String pattern, ZoneId zoneId) {
+        DateTimeFormatter dateTimeFormatter = getFormatter(pattern);
+        Instant.ofEpochMilli(timestamp);
+        return dateTimeFormatter.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), zoneId));
+    }
+
     /**
      * 将date转换为毫秒级别时间戳
      *
@@ -85,7 +107,7 @@ public class DateUtil {
      * @return
      */
     public static LocalDate parseDate(String dateText, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        DateTimeFormatter formatter = getFormatter(pattern);
         return parseDate(dateText, formatter);
     }
 
@@ -125,5 +147,16 @@ public class DateUtil {
         return DateUtil.toMilliseconds(localDate);
     }
 
-
+    private static DateTimeFormatter getFormatter(String pattern) {
+        DateTimeFormatter dateTimeFormatter = cache.get(pattern);
+        if (null == dateTimeFormatter) {
+            synchronized (DateUtil.class) {
+                if (null == dateTimeFormatter) {
+                    dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+                    cache.put(pattern, dateTimeFormatter);
+                }
+            }
+        }
+        return dateTimeFormatter;
+    }
 }
