@@ -9,7 +9,9 @@ import org.springframework.data.annotation.LastModifiedDate;
  * 通过调用spring-data-mongodb的方法可以自动完成创建时间和更新时间的设置，由于当前版本的spring-data-mongodb本身的问题，
  * 如果是bulk操作，不会更新这两个字段的值，请手动设置。
  * Created by mallen on 10/09/18.
+ * @deprecated 请使用mallen-common-mongodb
  */
+@Deprecated
 public class BaseDocument {
     @Id
     private String id;

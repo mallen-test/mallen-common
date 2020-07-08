@@ -13,7 +13,10 @@ import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
 /**
  * QBaseDocument is a Querydsl query type for BaseDocument
+ *
+ * @deprecated 请使用mallen-common-mongodb
  */
+@Deprecated
 @Generated("com.querydsl.codegen.EmbeddableSerializer")
 public class QBaseDocument extends BeanPath<BaseDocument> {
 
