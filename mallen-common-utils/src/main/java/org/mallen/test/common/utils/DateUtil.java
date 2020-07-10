@@ -8,13 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author mallen
  * @date 12/30/19
  */
 public class DateUtil {
-    private static Map<String, DateTimeFormatter> cache = new HashMap<>();
+    private static Map<String, DateTimeFormatter> cache = new ConcurrentHashMap<>();
 
     /**
      * 使用默认时区格式化时间戳
