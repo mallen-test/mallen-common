@@ -9,6 +9,10 @@ package org.mallen.test.common.exception;
 public class BaseBusinessException extends RuntimeException {
     private IError error;
     private String extMessage;
+    /**
+     * 在抛错时，附带数据，该字段值会设置为Response的data字段的值
+     */
+    private Object data;
 
     public BaseBusinessException(IError error) {
         super(error.getErrorCode() + ", " + error.getErrorMessage());
@@ -95,6 +99,14 @@ public class BaseBusinessException extends RuntimeException {
 
     public void setExtMessage(String extMessage) {
         this.extMessage = extMessage;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     @Override

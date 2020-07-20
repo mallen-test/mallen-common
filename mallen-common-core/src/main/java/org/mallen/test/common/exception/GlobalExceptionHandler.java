@@ -43,6 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         errorBody.setErrorCode(error.getErrorCode());
         errorBody.setErrorMessage(error.getErrorMessage());
         errorBody.setExtMessage(exception.getExtMessage());
+        errorBody.setData(exception.getData());
 
         return new ResponseEntity<>(errorBody, null, HttpStatus.OK);
     }
