@@ -55,6 +55,26 @@ public class DateUtil {
     }
 
     /**
+     * 获取当天的第0秒
+     *
+     * @return 毫秒级别时间戳
+     */
+    public static Long firstSecondOfToday() {
+        LocalDate now = LocalDate.now();
+        return DateUtil.toMilliseconds(now);
+    }
+
+    /**
+     * 获取某一天的第0秒
+     *
+     * @param day
+     * @return 毫秒级别时间戳
+     */
+    public static Long firstSecondOfDay(LocalDate day) {
+        return DateUtil.toMilliseconds(day);
+    }
+
+    /**
      * 计算某天所在月份的开始时间戳，也就是当月1日的0点0分0秒
      *
      * @param someDayInMonth
