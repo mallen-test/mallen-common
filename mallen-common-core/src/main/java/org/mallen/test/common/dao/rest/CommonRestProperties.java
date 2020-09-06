@@ -88,9 +88,9 @@ public class CommonRestProperties {
      */
     public class KeepAliveTimeout {
         /**
-         * 默认的超时时间，默认29分钟(一般服务器设置的为30分钟)
+         * 默认的超时时间，单位：毫秒，默认59秒(tomcat默认为60秒)
          */
-        private long def = 104400000;
+        private long def = 59000;
         /**
          * 特定域名的超时时间，key为域名，value为超时时间。比如：www.baidu.com=10000，即指定百度的访问超时为10s
          */

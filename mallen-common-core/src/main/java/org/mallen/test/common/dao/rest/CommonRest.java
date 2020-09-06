@@ -163,8 +163,6 @@ public class CommonRest {
     @Autowired(required = false)
     @Qualifier("loadBalancedRestTemplate")
     private RestTemplate loadBalancedRestTemplate;
-//    @Autowired(required = false)
-//    private DiscoveryClient discoveryClient;
     @Autowired(required = false)
     private CommonRestProperties restProperties;
 
@@ -1485,8 +1483,6 @@ public class CommonRest {
         queryParams.entrySet().removeIf(stringObjectEntry -> StringUtils.isEmpty(stringObjectEntry.getValue()));
         // 拼接url参数，参数格式如：url?a={a}&b={b}，其中a,b为queryParams中的key
         StringBuilder urlBuilder = new StringBuilder(url).append("?");
-        // 计算签名
-        buildSign(url, queryParams, pathVariable);
         Map<String, Object> treeMap = new TreeMap<>(queryParams);
         for (Map.Entry<String, Object> entry : treeMap.entrySet()) {
             String key = entry.getKey();
@@ -1685,37 +1681,6 @@ public class CommonRest {
 
     ////////////////////////////////////////////////////////
     /////////////////////////可重写部分///////////////////////
-
-    /**
-     * 在uri中添加sign相关参数，并放入queryParams中
-     *
-     * @param url          签名URL
-     * @param queryParams  签名参数
-     * @param pathVariable pathVariable
-     */
-    protected void buildSign(String url, Map queryParams, PathVariable pathVariable) {
-//        // 如果是通过服务名访问，则不需要计算签名
-//        if (useLoadBalance(url)) {
-//            return;
-//        }
-//        if (this.securityProperties == null || this.securityProperties.getAppkey() == null) {
-//            throw new RuntimeException("请配置appkey和secretKey，配置项为mallen.security.appkey、mallen.security.secretKey");
-//        }
-//        // 替换path参数
-//        url = replacePathVariable(url, pathVariable);
-//        String uri = getUri(url);
-//        // 计算签名
-//        queryParams.put("appkey", this.securityProperties.getAppkey());
-//        queryParams.put("signt", System.currentTimeMillis() + "");
-//        String sign = null;
-//        try {
-//            sign = SignatureGenerator.generate(uri, queryParams, this.securityProperties.getSecretKey());
-//        } catch (Exception e) {
-//            logger.error("签名计算失败。。。", e);
-//        }
-//        queryParams.put("sign", sign);
-    }
-
     /**
      * 获取URI地址
      *
