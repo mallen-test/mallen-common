@@ -10,16 +10,16 @@ import java.util.Map;
 /**
  * 针对{@code CommonRest}类的配置项目定义
  *
- * @author taoningbo
- * @since 1.0.0
+ * @author mallen
+ * @date 2019/08/14
  */
 @ConfigurationProperties(prefix = "mallen.rest")
 public class CommonRestProperties {
     private static volatile DateTimeFormatter logTimeFormatter = null;
-    private int connectTimeout = 1000 * 60 * 2;
-    private int readTimeout = 1000 * 60 * 2;
-    private int asyncConnectTimeout = 1000 * 60 * 2;
-    private int asyncReadTimeout = 1000 * 60 * 2;
+    private int connectTimeout = 1000 * 5;
+    private int readTimeout = 1000 * 60;
+    private int asyncConnectTimeout = 1000 * 5;
+    private int asyncReadTimeout = 1000 * 60;
     private KeepAliveTimeout keepAliveTimeout = new KeepAliveTimeout();
     private String logTimeFormat;
 
@@ -90,7 +90,7 @@ public class CommonRestProperties {
         /**
          * 默认的超时时间，单位：毫秒，默认59秒(tomcat默认为60秒)
          */
-        private long def = 59000;
+        private long def = 55000;
         /**
          * 特定域名的超时时间，key为域名，value为超时时间。比如：www.baidu.com=10000，即指定百度的访问超时为10s
          */
