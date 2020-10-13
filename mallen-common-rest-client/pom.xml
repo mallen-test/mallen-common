@@ -16,6 +16,10 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mallen.test</groupId>
+            <artifactId>mallen-common-utils</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
