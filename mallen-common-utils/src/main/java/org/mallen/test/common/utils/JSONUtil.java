@@ -18,9 +18,7 @@ import java.net.URL;
  *
  * @author mallen
  * @date 11/07/18
- * @deprecated 已过期，请使用mallen-common-utils中的对应类
  */
-@Deprecated
 public class JSONUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(JSONUtil.class);

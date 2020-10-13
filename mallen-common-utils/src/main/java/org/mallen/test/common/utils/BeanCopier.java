@@ -25,9 +25,7 @@ import org.slf4j.LoggerFactory;
  *</pre>
  * @author mallen
  * @date 10/24/18
- * @deprecated 已过期，请使用mallen-common-utils中的对应类
  */
-@Deprecated
 public class BeanCopier {
     private static Logger logger = LoggerFactory.getLogger(BeanCopier.class);
 
