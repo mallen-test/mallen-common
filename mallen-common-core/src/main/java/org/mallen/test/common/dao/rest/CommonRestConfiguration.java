@@ -27,7 +27,9 @@ import java.nio.charset.StandardCharsets;
  *
  * @author mallen
  * @date 8/13/19
+ * @deprecated 已迁移到mallen-common-rest-client模块
  */
+@Deprecated
 @Configuration
 @EnableConfigurationProperties({CommonRestProperties.class})
 public class CommonRestConfiguration {

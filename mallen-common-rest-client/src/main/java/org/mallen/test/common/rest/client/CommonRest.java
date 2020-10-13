@@ -1,4 +1,4 @@
-package org.mallen.test.common.dao.rest;
+package org.mallen.test.common.rest.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.mallen.test.common.utils.JSONUtil;
@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -20,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.io.File;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -146,9 +144,7 @@ import java.util.regex.Pattern;
  *
  * @author tao.wang
  * @date 10/16/18
- * @deprecated 已迁移到mallen-common-rest-client模块
  */
-@Deprecated
 public class CommonRest {
     private static final Logger logger = LoggerFactory.getLogger(CommonRest.class);
     /**

@@ -9,6 +9,7 @@
         <module>mallen-common-core</module>
         <module>mallen-common-utils</module>
         <module>mallen-common-mongodb</module>
+        <module>mallen-common-rest-client</module>
     </modules>
 
     <parent>

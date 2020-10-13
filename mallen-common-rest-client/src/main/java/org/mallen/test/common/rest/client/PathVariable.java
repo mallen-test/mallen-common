@@ -1,4 +1,4 @@
-package org.mallen.test.common.dao.rest;
+package org.mallen.test.common.rest.client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,9 +6,7 @@ import java.util.Map;
 /**
  * @author mallen
  * @date 10/16/18
- * @deprecated 已迁移到mallen-common-rest-client模块
  */
-@Deprecated
 public class PathVariable {
     private Map params;
 

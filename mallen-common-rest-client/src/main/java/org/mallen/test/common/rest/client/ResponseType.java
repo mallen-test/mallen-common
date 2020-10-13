@@ -1,4 +1,4 @@
-package org.mallen.test.common.dao.rest;
+package org.mallen.test.common.rest.client;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -6,9 +6,7 @@ import java.lang.reflect.Type;
 /**
  * @author mallen
  * @date 8/13/19
- * @deprecated 已迁移到mallen-common-rest-client模块
  */
-@Deprecated
 public abstract class ResponseType<T> {
     private final Type type;
 

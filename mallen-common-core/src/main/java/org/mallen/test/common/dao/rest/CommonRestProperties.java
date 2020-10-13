@@ -12,7 +12,9 @@ import java.util.Map;
  *
  * @author mallen
  * @date 2019/08/14
+ * @deprecated 已迁移到mallen-common-rest-client模块
  */
+@Deprecated
 @ConfigurationProperties(prefix = "mallen.rest")
 public class CommonRestProperties {
     private static volatile DateTimeFormatter logTimeFormatter = null;

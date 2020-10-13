@@ -1,4 +1,4 @@
-package org.mallen.test.common.dao.rest;
+package org.mallen.test.common.rest.client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +9,7 @@ import java.util.Set;
  *
  * @author mallen
  * @date 6/3/19
- * @deprecated 已迁移到mallen-common-rest-client模块
  */
-@Deprecated
 public class HeaderMap<K, V> {
 
     private Map<K, V> params;
