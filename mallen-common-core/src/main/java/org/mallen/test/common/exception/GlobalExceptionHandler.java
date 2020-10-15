@@ -57,9 +57,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         Response errorBody = new Response();
         errorBody.setStatus(Response.Status.FAILED);
-        errorBody.setErrorCode("SYS." + String.valueOf(status.value()));
+        errorBody.setErrorCode("SYS." + status.value());
         errorBody.setErrorMessage(status.getReasonPhrase());
-        errorBody.setExtMessage(ex.getMessage());
 
         return new ResponseEntity<>(errorBody, headers, HttpStatus.OK);
     }

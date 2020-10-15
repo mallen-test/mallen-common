@@ -33,9 +33,10 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     public RequestWrapper(HttpServletRequest request) {
         super(request);
         isMultipart = isMultipart(request);
-        if (!isMultipart)
+        if (!isMultipart) {
             // 缓存parameter map，不然后续spring获取参数时会获取不到（原因未知，与tomcat底层实现有关）
             cacheInputStream();
+        }
     }
 
     private boolean isMultipart(final HttpServletRequest request) {
@@ -67,15 +68,20 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                         // 可能存在只传递key的情况，比如vin=123&name=&age=17，其中的name的值默认为空字符串
                         existVal.add(nameVal.length > 1 ? nameVal[1] : "");
                     } else {
-                        params.put(nameVal[0], Arrays.asList(nameVal.length > 1 ? decode(nameVal[1]) : ""));
+                        params.put(nameVal[0], buildList(nameVal.length > 1 ? decode(nameVal[1]) : ""));
                     }
                 }
             }
 
-            this.parameterMap = new HashMap<>();
-            for (String key : params.keySet()) {
+            this.parameterMap = new HashMap<>((int) (params.size() / 0.75 + 1));
+            params.forEach((String key, Object val) -> {
+
+                if (val instanceof List) {
+                    this.parameterMap.put(key, (String[]) ((List) val).toArray(new String[]{}));
+                    return;
+                }
                 this.parameterMap.put(key, (String[]) params.get(key).toArray());
-            }
+            });
         } else {
             this.parameterMap = super.getParameterMap();
         }
@@ -89,8 +95,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     private Map<String, List> getQueryParam() {
         Map<String, List> result = new HashMap<String, List>();
         String queryString = super.getQueryString();
-        if (null == queryString || "".equals(queryString.trim()))
+        if (null == queryString || "".equals(queryString.trim())) {
             return result;
+        }
         try {
             queryString = URLDecoder.decode(queryString, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -104,7 +111,8 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                 // 可能存在只传递key的情况，比如vin=123&name=&age=17，其中的name的值默认为空字符串
                 existVal.add(paramAndValue.length > 1 ? paramAndValue[1] : "");
             } else {
-                result.put(paramAndValue[0], Arrays.asList(paramAndValue.length > 1 ? decode(paramAndValue[1]) : ""));
+
+                result.put(paramAndValue[0], buildList(paramAndValue.length > 1 ? decode(paramAndValue[1]) : ""));
             }
 
         }
@@ -112,11 +120,19 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         return result;
     }
 
+    private <T> List<T> buildList(T... values) {
+        List<T> list = new ArrayList(values.length);
+        for (T value : values) {
+            list.add(value);
+        }
+        return list;
+    }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        if (isMultipart)
+        if (isMultipart) {
             return super.getInputStream();
+        }
 
         if (outputStream == null) {
             cacheInputStream();
@@ -147,9 +163,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String getParameter(String name) {
-        if (isMultipart)
+        if (isMultipart) {
             return super.getParameter(name);
-
+        }
         if (this.parameterMap == null) {
             cacheParamMap();
         }
@@ -159,9 +175,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public Map<String, String[]> getParameterMap() {
-        if (isMultipart)
+        if (isMultipart) {
             return super.getParameterMap();
-
+        }
         if (this.parameterMap == null) {
             cacheParamMap();
         }
@@ -170,9 +186,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public Enumeration<String> getParameterNames() {
-        if (isMultipart)
+        if (isMultipart) {
             return super.getParameterNames();
-
+        }
         if (this.parameterMap == null) {
             cacheParamMap();
         }
@@ -182,9 +198,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String[] getParameterValues(String name) {
-        if (isMultipart)
+        if (isMultipart) {
             return super.getParameterValues(name);
-
+        }
         if (this.parameterMap == null) {
             cacheParamMap();
         }
@@ -218,8 +234,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         @Override
         public int read() throws IOException {
             int result = input.read();
-            if (-1 == result)
+            if (-1 == result) {
                 isFinish = true;
+            }
             return result;
         }
 
