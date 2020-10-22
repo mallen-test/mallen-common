@@ -19,9 +19,9 @@ import java.net.URL;
  * @author mallen
  * @date 11/07/18
  */
-public class JSONUtil {
+public class JsonUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(JSONUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
 
     private static final ObjectMapper objectMapper;
 

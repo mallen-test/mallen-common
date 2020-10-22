@@ -1,7 +1,7 @@
 package org.mallen.test.common.rest.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.mallen.test.common.utils.JSONUtil;
+import org.mallen.test.common.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1525,7 +1525,7 @@ public class CommonRest {
             formMap = (Map<String, Object>) formObject;
         } else {
             //noinspection unchecked
-            formMap = JSONUtil.readValue(JSONUtil.writeValueAsString(formObject), Map.class);
+            formMap = JsonUtil.readValue(JsonUtil.writeValueAsString(formObject), Map.class);
         }
         // 构造form参数
         for (Map.Entry<String, Object> entry : formMap.entrySet()) {
@@ -1640,7 +1640,7 @@ public class CommonRest {
         T body = responseEntity.getBody();
         String stringBody;
         if (!(body instanceof String)) {
-            stringBody = JSONUtil.writeValueAsString(body);
+            stringBody = JsonUtil.writeValueAsString(body);
         } else {
             stringBody = (String) body;
         }
@@ -1650,7 +1650,7 @@ public class CommonRest {
         if (StringUtils.isEmpty(cusResp)) {
             return body;
         }
-        return JSONUtil.readValue(cusResp, new TypeReference<T>() {
+        return JsonUtil.readValue(cusResp, new TypeReference<T>() {
             @Override
             public Type getType() {
                 return responseType.getType();
@@ -1898,10 +1898,10 @@ public class CommonRest {
                 }
                 if (!(entity.getHeaders() != null && entity.getHeaders().getContentType() != null && entity.getHeaders().getContentType().equals(MediaType.MULTIPART_FORM_DATA))
                         && entity.getBody() != null) {
-                    logger.debug("请求body数据: {}", JSONUtil.writeValueAsString(entity.getBody()));
+                    logger.debug("请求body数据: {}", JsonUtil.writeValueAsString(entity.getBody()));
                 }
             }
-            logger.debug("原始响应信息: {}", response == null ? null : JSONUtil.writeValueAsString(response.getBody()));
+            logger.debug("原始响应信息: {}", response == null ? null : JsonUtil.writeValueAsString(response.getBody()));
             logger.debug("请求结束时间：{}，耗时：{} ms", formatLogTime(endTime), endTime - beginTime);
         } catch (Exception ex) {
             logger.error("打印访问日志失败：", ex);

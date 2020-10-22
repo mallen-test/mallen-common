@@ -11,9 +11,6 @@ import java.security.NoSuchAlgorithmException;
  * @date 2020/10/14
  */
 public class MessageDigestUtil {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(MessageDigestUtil.md5("123123123"));
-    }
 
     public static String md5(String msg) {
         return calc(msg, "MD5");
@@ -69,6 +66,7 @@ public class MessageDigestUtil {
     private static String doCalc(byte[] input, String algorithm) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance(algorithm);
         byte[] result = mDigest.digest(input);
+        // 转换为Hex字符串
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < result.length; i++) {
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
