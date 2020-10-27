@@ -1,12 +1,14 @@
 package org.mallen.test.common.exception;
 
 /**
+ * 通用错误码
  * Created by mallen on 9/12/18
  */
 public enum SystemError implements IError {
     SYSTEM_INTERNAL_ERROR("0000", "System Internal Error"),
     INVALID_TOKEN("0004", "Invalid token"),
     INVALID_SIGN("0005", "Invalid sign"),
+    ACCESS_DENIED("0006", "Access denied"),
     CALL_THIRD_SYSTEM_ERROR("9998", "call third system error"),
     OTHER("9999", "unrecognized error");
 
