@@ -6,6 +6,7 @@ package org.mallen.test.common.exception;
  */
 public enum SystemError implements IError {
     SYSTEM_INTERNAL_ERROR("0000", "System Internal Error"),
+    TOO_MUCH_REQUEST_DATA("0003", "Too much request data"),
     INVALID_TOKEN("0004", "Invalid token"),
     INVALID_SIGN("0005", "Invalid sign"),
     ACCESS_DENIED("0006", "Access denied"),
