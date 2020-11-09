@@ -18,6 +18,18 @@ public class DateUtil {
     private static Map<String, DateTimeFormatter> cache = new ConcurrentHashMap<>();
 
     /**
+     * 格式化时间
+     *
+     * @param temporal LocalDateTime或者LocalDate
+     * @param pattern
+     * @return
+     */
+    public static String format(TemporalAccessor temporal, String pattern) {
+        DateTimeFormatter dateTimeFormatter = getFormatter(pattern);
+        return dateTimeFormatter.format(temporal);
+    }
+
+    /**
      * 使用默认时区格式化时间戳
      *
      * @param timestamp
