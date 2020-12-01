@@ -10,6 +10,7 @@ public enum SystemError implements IError {
     INVALID_TOKEN("0004", "Invalid token"),
     INVALID_SIGN("0005", "Invalid sign"),
     ACCESS_DENIED("0006", "Access denied"),
+    REQUEST_PARAM_ERROR("0007", "Request param invalid"),
     CALL_THIRD_SYSTEM_ERROR("9998", "call third system error"),
     OTHER("9999", "unrecognized error");
 
