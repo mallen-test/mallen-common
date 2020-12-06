@@ -26,10 +26,10 @@ import org.slf4j.LoggerFactory;
  * @author mallen
  * @date 10/24/18
  */
-public class BeanCopierUtil {
-    private static Logger logger = LoggerFactory.getLogger(BeanCopierUtil.class);
+public class BeanCopyUtil {
+    private static Logger logger = LoggerFactory.getLogger(BeanCopyUtil.class);
 
-    public BeanCopierUtil() {
+    public BeanCopyUtil() {
     }
 
     public static void copyProperties(Object source, Object target, Converter converter) {
