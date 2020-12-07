@@ -26,6 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -36,6 +37,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,10 +71,24 @@ public class CommonRestConfiguration {
             requestFactory.setConnectionRequestTimeout(commonRestProperties.getConnPool().getConnectionRequestTimeout());
         }
         RestTemplate restTemplate = new RestTemplate(requestFactory);
+        addInterceptors(restTemplate);
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 
         return restTemplate;
+    }
+
+    /**
+     * 添加RestTemplate的拦截器
+     *
+     * @param restTemplate
+     */
+    private void addInterceptors(RestTemplate restTemplate) {
+        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+        // response type转换器
+        if (!CollectionUtils.isEmpty(commonRestProperties.getResponseTypeConverters())) {
+            interceptors.add(new ResponseContentTypeConverter(commonRestProperties.getResponseTypeConverters()));
+        }
     }
 
     public class CustomerHttpComponentsClientHttpRequestFactory extends HttpComponentsClientHttpRequestFactory {

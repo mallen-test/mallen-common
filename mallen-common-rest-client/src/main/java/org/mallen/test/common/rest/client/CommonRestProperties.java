@@ -24,6 +24,7 @@ public class CommonRestProperties {
     private KeepAliveTimeout keepAliveTimeout = new KeepAliveTimeout();
     private ConnectionPool connPool = new ConnectionPool();
     private String logTimeFormat;
+    private List<ResponseTypeConverter> responseTypeConverters;
 
     public int getConnectTimeout() {
         return connectTimeout;
@@ -91,6 +92,14 @@ public class CommonRestProperties {
         }
 
         return logTimeFormatter;
+    }
+
+    public List<ResponseTypeConverter> getResponseTypeConverters() {
+        return responseTypeConverters;
+    }
+
+    public void setResponseTypeConverters(List<ResponseTypeConverter> responseTypeConverters) {
+        this.responseTypeConverters = responseTypeConverters;
     }
 
     /**
@@ -257,6 +266,72 @@ public class CommonRestProperties {
                     ", port=" + port +
                     ", max=" + max +
                     '}';
+        }
+    }
+
+    /**
+     * 目的：
+     * 当访问某些系统的接口时，其body的数据格式与Content-Type申明的格式不一致。而RestTemplate需要依赖于Content-Type，以找到正确的Converter，将http body转换为指定的vo类。
+     * 所以，增加该配置类，用于定义哪些域名/接口需要转换Response的Content-Type
+     */
+    public static class ResponseTypeConverter {
+        private Type type;
+        /**
+         * 对应type的关键字
+         */
+        private String key;
+        /**
+         * 目标Content-Type值
+         */
+        private String target;
+
+        public Type getType() {
+            return type;
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getTarget() {
+            return target;
+        }
+
+        public void setTarget(String target) {
+            this.target = target;
+        }
+
+        @Override
+        public String toString() {
+            return "ResponseTypeConverter{" +
+                    "type=" + type +
+                    ", key='" + key + '\'' +
+                    ", target='" + target + '\'' +
+                    '}';
+        }
+
+        public enum Type {
+            /**
+             * 转换所有请求，不区分具体请求
+             */
+            ALL,
+            /**
+             * 根据host判断，需要注意的是：为了与全局标签匹配，此处的host是包括schema和端口（如果有）的。比如：http://172.24.33.99:19880、http://www.baidu.com
+             */
+            HOST,
+            /**
+             * 根据host和path判断，需要注意的是：为了与全局标签匹配，此处的host是包括schema和端口（如果有）的。比如：http://172.24.33.99:19880/user/list、http://www.baidu.com/user/list
+             */
+            HOST_PATH,
+            ;
         }
     }
 }
