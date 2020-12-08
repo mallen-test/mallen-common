@@ -1,12 +1,8 @@
 package org.mallen.test.common.utils;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DateUtil {
     private static Map<String, DateTimeFormatter> cache = new ConcurrentHashMap<>();
+    private static ZoneOffset localZoneOffset = OffsetDateTime.now().getOffset();
 
     /**
      * 格式化时间
@@ -52,12 +49,22 @@ public class DateUtil {
      * @param date
      * @return
      */
-    public static Long toMilliseconds(LocalDate date) {
+    public static Long toMs(LocalDate date) {
         return date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**
-     * 将时间戳转换为local date
+     * 转换DateTime为毫秒时间戳
+     *
+     * @param dateTime
+     * @return
+     */
+    public static Long toMs(LocalDateTime dateTime) {
+        return dateTime.toInstant(localZoneOffset).toEpochMilli();
+    }
+
+    /**
+     * 将时间戳转换为LocalDate
      *
      * @param timestamp
      * @return
@@ -67,13 +74,23 @@ public class DateUtil {
     }
 
     /**
+     * 将时间戳转转为LocalDateTime
+     *
+     * @param timestamp
+     * @return
+     */
+    public LocalDateTime toDateTime(Long timestamp) {
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    /**
      * 获取当天的第0秒
      *
      * @return 毫秒级别时间戳
      */
     public static Long firstSecondOfToday() {
         LocalDate now = LocalDate.now();
-        return DateUtil.toMilliseconds(now);
+        return DateUtil.toMs(now);
     }
 
     /**
@@ -83,7 +100,7 @@ public class DateUtil {
      * @return 毫秒级别时间戳
      */
     public static Long firstSecondOfDay(LocalDate day) {
-        return DateUtil.toMilliseconds(day);
+        return DateUtil.toMs(day);
     }
 
     /**
@@ -94,7 +111,7 @@ public class DateUtil {
      */
     public static Long firstSecondOfMonth(LocalDate someDayInMonth) {
         LocalDate firstDayOfMonth = someDayInMonth.withDayOfMonth(1);
-        return DateUtil.toMilliseconds(firstDayOfMonth);
+        return DateUtil.toMs(firstDayOfMonth);
     }
 
     /**
@@ -107,7 +124,7 @@ public class DateUtil {
         // 下个月的第一天
         LocalDate firstDayOfNextMonth = someDayInMonth.plusMonths(1).withDayOfMonth(1);
         // 下个月的第一天减去1秒，即为当月的最后一秒
-        return DateUtil.toMilliseconds(firstDayOfNextMonth) - (1 * 1000);
+        return DateUtil.toMs(firstDayOfNextMonth) - (1 * 1000);
     }
 
     /**
@@ -118,7 +135,7 @@ public class DateUtil {
      */
     public static Long firstSecondOfYear(LocalDate someDayInYear) {
         LocalDate firstDayOfYear = someDayInYear.withDayOfYear(1);
-        return DateUtil.toMilliseconds(firstDayOfYear);
+        return DateUtil.toMs(firstDayOfYear);
     }
 
     /**
@@ -129,7 +146,7 @@ public class DateUtil {
      */
     public static Long lastSecondOfYear(LocalDate someDayInYear) {
         LocalDate firstDayOfNextYear = someDayInYear.withDayOfYear(1).withYear(someDayInYear.getYear() + 1);
-        return DateUtil.toMilliseconds(firstDayOfNextYear) - (1 * 1000);
+        return DateUtil.toMs(firstDayOfNextYear) - (1 * 1000);
     }
 
     /**
@@ -157,15 +174,39 @@ public class DateUtil {
     }
 
     /**
+     * 解析dateTime字符串为LocalDateTime
+     *
+     * @param dateTimeText
+     * @param pattern
+     * @return
+     */
+    public static LocalDateTime parseDateTime(String dateTimeText, String pattern) {
+        DateTimeFormatter formatter = getFormatter(pattern);
+        return parseDateTime(dateTimeText, formatter);
+    }
+
+    /**
+     * 解析dateTime字符串为LocalDateTime
+     *
+     * @param dateTimeText
+     * @param formatter
+     * @return
+     */
+    public static LocalDateTime parseDateTime(String dateTimeText, DateTimeFormatter formatter) {
+        TemporalAccessor temporalAccessor = formatter.parse(dateTimeText);
+        return LocalDateTime.from(temporalAccessor);
+    }
+
+    /**
      * 将日期字符串转换为毫秒时间戳
      *
      * @param dateText 时间字符串
      * @param pattern  时间格式，比如：yyyy-MM-dd
      * @return
      */
-    public static Long parseMilliseconds(String dateText, String pattern) {
+    public static Long parseDate2Ms(String dateText, String pattern) {
         LocalDate localDate = parseDate(dateText, pattern);
-        return DateUtil.toMilliseconds(localDate);
+        return DateUtil.toMs(localDate);
     }
 
     /**
@@ -175,9 +216,21 @@ public class DateUtil {
      * @param formatter 时间格式，比如：yyyy-MM-dd
      * @return
      */
-    public static Long parseMilliseconds(String dateText, DateTimeFormatter formatter) {
+    public static Long parseDate2Ms(String dateText, DateTimeFormatter formatter) {
         LocalDate localDate = parseDate(dateText, formatter);
-        return DateUtil.toMilliseconds(localDate);
+        return DateUtil.toMs(localDate);
+    }
+
+    /**
+     * 解析dateTime字符串为LocalDateTime
+     *
+     * @param dateTimeText
+     * @param pattern
+     * @return
+     */
+    public static Long parseDateTime2Ms(String dateTimeText, String pattern) {
+        LocalDateTime localDateTime = parseDateTime(dateTimeText, pattern);
+        return toMs(localDateTime);
     }
 
     private static DateTimeFormatter getFormatter(String pattern) {
