@@ -79,7 +79,7 @@ public class DateUtil {
      * @param timestamp
      * @return
      */
-    public LocalDateTime toDateTime(Long timestamp) {
+    public static LocalDateTime toDateTime(Long timestamp) {
         return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
