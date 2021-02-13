@@ -39,8 +39,23 @@ public class DateUtil {
 
     public static String formatMs(Long timestamp, String pattern, ZoneId zoneId) {
         DateTimeFormatter dateTimeFormatter = getFormatter(pattern);
-        Instant.ofEpochMilli(timestamp);
         return dateTimeFormatter.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), zoneId));
+    }
+
+    /**
+     * 将秒级别的时间戳，格式化为字符串
+     *
+     * @param second
+     * @param pattern
+     * @return
+     */
+    public static String formatSecond(Long second, String pattern) {
+        return formatSecond(second, pattern, ZoneId.systemDefault());
+    }
+
+    public static String formatSecond(Long second, String pattern, ZoneId zoneId) {
+        DateTimeFormatter dateTimeFormatter = getFormatter(pattern);
+        return dateTimeFormatter.format(LocalDateTime.ofInstant(Instant.ofEpochSecond(second), zoneId));
     }
 
     /**
