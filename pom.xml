@@ -83,7 +83,7 @@
         <repository>
             <id>maven-releases</id>
             <name>CDiot Project Release</name>
-            <url>http://dev.ebox.cn:19001/repository/maven-release/</url>
+            <url>http://dev.ebox.cn:19001/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>maven-snapshots</id>
