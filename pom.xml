@@ -81,14 +81,14 @@
 
     <distributionManagement>
         <repository>
-            <id>cdiot-releases</id>
+            <id>maven-releases</id>
             <name>CDiot Project Release</name>
-            <url>http://dev.ebox.cn:19001/repository/cdiot-release/</url>
+            <url>http://dev.ebox.cn:19001/repository/maven-release/</url>
         </repository>
         <snapshotRepository>
-            <id>cdiot-snapshots</id>
+            <id>maven-snapshots</id>
             <name>CDiot Project Snapshot</name>
-            <url>http://dev.ebox.cn:19001/repository/cdiot-snapshot/</url>
+            <url>http://dev.ebox.cn:19001/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
